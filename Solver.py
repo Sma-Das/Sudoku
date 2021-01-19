@@ -4,6 +4,7 @@ from collections import defaultdict
 
 class Solver:
     def __init__(self, puzzle: SudokuPuzzle):
+        self.EMPTY = 0
         self.puzzle = puzzle
         self.invalid_options = defaultdict(set)
 
@@ -40,10 +41,23 @@ class Solver:
             if is_invalid:
                 self.invalid_options[(row, column)] = value
 
+    def valid_option(self):
+        return all([len(options) > 0 for options in self.all_options.values()])
+
     def brute_solve(self):
-        quick_his = self.simple_elimination()
+        simple_update = self.simple_elimination()
         if self.puzzle.complete():
             return self
+        elif not self.valid_option():
+            return
+        for (row, column), options in self.all_options.items():
+            for opt in options:
+                self.puzzle[row, column] = opt
+                if self.brute_solve():
+                    return self
+                self.puzzle[row, column] = self.EMPTY
+                self.undo_history(simple_update)
+            return
 
 
 if __name__ == '__main__':
@@ -59,8 +73,7 @@ if __name__ == '__main__':
         [0, 4, 9, 2, 0, 6, 0, 0, 7]
     ])
     temp = Solver(test_puzzle)
-    print(temp.options(1, 3))
-    # print(temp.all_options)
-    # temp.simple_elimination()
-    # print(temp.all_options)
+    temp.puzzle.print_puzzle()
+    temp.brute_solve()
+    print(temp.all_options)
     temp.puzzle.print_puzzle()
