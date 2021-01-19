@@ -26,10 +26,8 @@ class Solver:
 
     def simple_elimination(self, history: dict = {}) -> dict:
         if self.puzzle.complete():
-            print("done")
             return history
         for (row, column), options in self.all_options.items():
-            print(row, column, options)
             if len(options) == 1:
                 self.puzzle[row, column] = options.pop()
                 history[(row, column)] = self.puzzle[row, column]
@@ -63,6 +61,6 @@ if __name__ == '__main__':
     temp = Solver(test_puzzle)
     print(temp.options(1, 3))
     # print(temp.all_options)
-    temp.simple_elimination()
+    # temp.simple_elimination()
     # print(temp.all_options)
     temp.puzzle.print_puzzle()
