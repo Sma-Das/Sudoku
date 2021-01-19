@@ -63,6 +63,6 @@ if __name__ == '__main__':
     temp = Solver(test_puzzle)
     print(temp.options(1, 3))
     # print(temp.all_options)
-    # temp.simple_elimination()
+    temp.simple_elimination()
     # print(temp.all_options)
-    # temp.puzzle.print_puzzle()
+    temp.puzzle.print_puzzle()
