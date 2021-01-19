@@ -19,7 +19,10 @@ class Solver:
             opts[(row, column)] = self.options(row, column)
         return opts
 
-    def simple_elimination(self, history: dict = {}):
+    def simple_elimination(self, history: dict = {}) -> dict:
         for row, column, options in self.all_options.items():
             if len(options) == 1:
-                pass
+                self.puzzle[row, column] = options.pop()
+                history[(row, column)] = self.puzzle[row, column]
+                return self.simple_elimination(history)
+        return history
