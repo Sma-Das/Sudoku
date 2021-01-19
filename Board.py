@@ -51,3 +51,11 @@ class SudokuPuzzle:
                 block.add(self.puzzle[r][c])
 
         return block
+
+    def __setitem__(self, pos, val):
+        row, column = pos
+        self.board[row][column] = val
+
+    def __getitem__(self, pos):
+        row, column = pos
+        return self.board[row][column]
