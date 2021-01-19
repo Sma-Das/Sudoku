@@ -25,6 +25,8 @@ class SudokuPuzzle:
         return True
 
     def open_cells(self) -> tuple:
+        if self.complete():
+            return []
         for row in range(9):
             for column in range(9):
                 if self.puzzle[row][column] == 0:
