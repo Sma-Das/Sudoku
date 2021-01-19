@@ -3,18 +3,18 @@ class SudokuPuzzle:
         self.puzzle = puzzle
 
     def print_puzzle(self):
-        for row, row in enumerate(self.puzzle):
-            if row % 3 == 0 and row != 0:
+        for row_num, row in enumerate(self.puzzle):
+            if row_num % 3 == 0 and row_num != 0:
                 line = "-"*6
                 print(line+"+"+line+"-+"+line)
-            for column, value in enumerate(row):
-                if column % 3 == 0 and column != 0:
+            for col_num, value in enumerate(row):
+                if col_num % 3 == 0 and col_num != 0:
                     print("|", end=" ")
                 if value == 0:
                     print(end="  ")
                 else:
                     print(value, end=" ")
-                if column == 8:
+                if col_num == 8:
                     print()
 
     def complete(self) -> bool:
@@ -27,7 +27,7 @@ class SudokuPuzzle:
     def open_cells(self) -> tuple:
         for row in range(9):
             for column in range(9):
-                if self.board[row][column] == 0:
+                if self.puzzle[row][column] == 0:
                     yield row, column
 
     def row(self, r_num: int) -> set:
@@ -43,8 +43,8 @@ class SudokuPuzzle:
         assert 0 <= r_num <= 8, "Row out of bounds"
         block = set()
 
-        row = r_num//3
-        col = c_num//3
+        row = r_num//3 * 3
+        col = c_num//3 * 3
 
         for r in range(row, row+3):
             for c in range(col, col+3):
@@ -54,8 +54,8 @@ class SudokuPuzzle:
 
     def __setitem__(self, pos, val):
         row, column = pos
-        self.board[row][column] = val
+        self.puzzle[row][column] = val
 
     def __getitem__(self, pos):
         row, column = pos
-        return self.board[row][column]
+        return self.puzzle[row][column]
