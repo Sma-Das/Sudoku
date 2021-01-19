@@ -11,3 +11,15 @@ class Solver:
         valid -= self.puzzle.column(column)
         valid -= self.puzzle.block(row, column)
         return valid
+
+    @property
+    def all_options(self) -> dict:
+        opts = {}
+        for row, column in self.puzzle.open_cells():
+            opts[(row, column)] = self.options(row, column)
+        return opts
+
+    def simple_elimination(self, history: dict = {}):
+        for row, column, options in self.all_options.items():
+            if len(options) == 1:
+                pass
