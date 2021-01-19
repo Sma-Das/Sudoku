@@ -1,6 +1,4 @@
-
-
-class Board(object):
+class SudokuPuzzle:
     def __init__(self, puzzle: list[list]):
         self.puzzle = puzzle
 
@@ -19,15 +17,37 @@ class Board(object):
                 if column == 8:
                     print()
 
-    def complete(self):
+    def complete(self) -> bool:
         row_sum = 1+2+3+4+5+6+7+8+9
         for row in self.puzzle:
             if sum(row) != row_sum:
                 return False
         return True
 
-    def open_cells(self):
+    def open_cells(self) -> tuple:
         for row in range(9):
             for column in range(9):
                 if self.board[row][column] == 0:
                     yield row, column
+
+    def row(self, r_num: int) -> set:
+        assert 0 <= r_num <= 8, "Row out of bounds"
+        return set(self.puzzle[r_num])
+
+    def column(self, c_num: int) -> set:
+        assert 0 <= c_num <= 8, "Column out of bounds"
+        return set([self.puzzle[row][c_num] for row in range(9)])
+
+    def block(self, r_num: int, c_num: int) -> set:
+        assert 0 <= c_num <= 8, "Column out of bounds"
+        assert 0 <= r_num <= 8, "Row out of bounds"
+        block = set()
+
+        row = r_num//3
+        col = c_num//3
+
+        for r in range(row, row+3):
+            for c in range(col, col+3):
+                block.add(self.puzzle[r][c])
+
+        return block
