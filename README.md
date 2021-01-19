@@ -14,3 +14,7 @@
 #### Board Look (terminal)
 ![Board Preview](https://user-images.githubusercontent.com/20164942/105075244-ed74f900-5aa2-11eb-88a0-45f0360af994.png)
 ![Board Look](https://user-images.githubusercontent.com/20164942/105075104-c1597800-5aa2-11eb-92cf-38734b95e947.png)
+
+
+# To do:
+- Use opencv2 to scan puzzles from an image
